@@ -53,3 +53,28 @@ jobs:
 
     - name: run test
       run: pipenv run test
+  
+  Build:
+    needs: [Lint,Test]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./starter/backend
+
+    steps:
+    - name: Checkout the Repository
+      uses: actions/checkout@v3
+      
+    - name: Use Python 3
+      uses:  actions/setup-python@v4
+      with:
+        python-version: "3.10"
+
+    - name: pip install pipenv
+      run: pip install pipenv
+
+    - name: pipenv install dependencies
+      run: pipenv install
+
+    - name: Build and Push Docker Image
+      run: docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 .
