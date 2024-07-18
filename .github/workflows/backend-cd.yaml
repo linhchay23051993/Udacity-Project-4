@@ -78,7 +78,7 @@ jobs:
       run: pipenv install
 
     - name: Build 
-      run: docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 .
+      run: docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag 204215116418.dkr.ecr.us-east-1.amazonaws.com/backend:latest .
     
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
