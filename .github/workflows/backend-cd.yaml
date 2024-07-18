@@ -1,0 +1,34 @@
+name: CD for backend app
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "starter/backend/**"
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./starter/backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: install pipenv
+        run: pip install pipenv
+
+      - name: install dependencies
+        run: pipenv install
+
+      - name: run lint
+        run: pipenv run lint
+  
