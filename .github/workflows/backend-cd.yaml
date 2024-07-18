@@ -90,5 +90,5 @@ jobs:
 
     - name: push docker 
       run: |
-      docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag 157277462905.dkr.ecr.us-east-1.amazonaws.com/backend:latest .
-      docker push 157277462905.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+        docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag 157277462905.dkr.ecr.us-east-1.amazonaws.com/backend:latest .
+        docker push 157277462905.dkr.ecr.us-east-1.amazonaws.com/backend:latest
