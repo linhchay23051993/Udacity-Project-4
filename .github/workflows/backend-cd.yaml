@@ -15,10 +15,10 @@ jobs:
       run:
         working-directory: ./starter/backend
     steps:
-      - name: Checkout code
+      - name: checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: setup python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
@@ -63,10 +63,10 @@ jobs:
         working-directory: ./starter/backend
 
     steps:
-    - name: Checkout the Repository
+    - name: checkout repo
       uses: actions/checkout@v3
       
-    - name: Use Python 3
+    - name: use python 3
       uses:  actions/setup-python@v4
       with:
         python-version: "3.10"
@@ -79,3 +79,14 @@ jobs:
 
     - name: Build and Push Docker Image
       run: docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 .
+    
+    - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+    - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
