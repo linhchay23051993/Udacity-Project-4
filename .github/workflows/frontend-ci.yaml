@@ -1,0 +1,61 @@
+name: CI for frontend app
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'starter/frontend/**'
+env:
+  NODE_VERSION: 18.x
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./starter/frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: install dependencis
+        run: npm install
+
+      - name: run lint
+        run: npm run lint
+  
+  Test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./starter/frontend
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+
+      - name: install dependencis
+        run: npm install
+
+      - name: run test
+        run: npm run test
+
+  Build:
+    needs: [Lint,Test]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./starter/frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: install dependencis
+        run: npm install
+
+      - name: push docker 
+        run: |
+          docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag 157277462905.dkr.ecr.us-east-1.amazonaws.com/frontend:latest .
+          docker push 157277462905.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
