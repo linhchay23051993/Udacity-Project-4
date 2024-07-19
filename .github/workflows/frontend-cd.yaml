@@ -69,6 +69,7 @@ jobs:
       - name: push docker 
         run: |
           export REACT_APP_MOVIE_API=$(kubectl get svc backend -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}{"\n"}{.status.loadBalancer.ingress[0].ip}')
+          echo "url REACT_APP_MOVIE_API: $REACT_APP_MOVIE_API"
           docker build --build-arg=REACT_APP_MOVIE_API_URL=http://$REACT_APP_MOVIE_API --tag 157277462905.dkr.ecr.us-east-1.amazonaws.com/frontend:latest .
           docker push 157277462905.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
     
