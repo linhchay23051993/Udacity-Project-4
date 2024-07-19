@@ -90,7 +90,7 @@ jobs:
 
     - name: push docker 
       run: |
-        docker build --build --tag 157277462905.dkr.ecr.us-east-1.amazonaws.com/backend:latest .
+        docker build --tag 157277462905.dkr.ecr.us-east-1.amazonaws.com/backend:latest .
         docker push 157277462905.dkr.ecr.us-east-1.amazonaws.com/backend:latest
   
     - name: deloy to eks
