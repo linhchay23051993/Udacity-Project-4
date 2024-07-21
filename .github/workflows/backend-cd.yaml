@@ -90,14 +90,12 @@ jobs:
 
     - name: push docker 
       run: |
-        echo "${{vars.IMAGE_BACKEND_TAG}}"
-        echo "${vars.IMAGE_BACKEND_TAG}"
-        docker build --tag 810716384126.dkr.ecr.us-east-1.amazonaws.com/backend:latest .
-        docker push 810716384126.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+        docker build --tag ${{vars.IMAGE_BACKEND_TAG}} .
+        docker push ${{vars.IMAGE_BACKEND_TAG}}
   
     - name: deloy to eks
       working-directory: ./starter/backend/k8s
       run: |
         aws eks update-kubeconfig --name cluster --region us-east-1
-        kustomize edit set image backend=810716384126.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+        kustomize edit set ${{vars.IMAGE_BACKEND_TAG}}
         kustomize build | kubectl apply -f -

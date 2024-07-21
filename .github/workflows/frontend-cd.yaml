@@ -69,13 +69,13 @@ jobs:
       - name: push docker 
         run: |
           aws eks update-kubeconfig --name cluster
-          export REACT_APP_MOVIE_API=$(kubectl get svc backend -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}{"\n"}{.status.loadBalancer.ingress[0].ip}')I
-          docker build --build-arg REACT_APP_MOVIE_API_URL=$REACT_APP_MOVIE_API --tag 810716384126.dkr.ecr.us-east-1.amazonaws.com/frontend:latest .
-          docker push 810716384126.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
+          export REACT_APP_MOVIE_API=$(kubectl get svc backend -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}{"\n"}{.status.loadBalancer.ingress[0].ip}')
+          docker build --build-arg REACT_APP_MOVIE_API_URL=$REACT_APP_MOVIE_API --tag ${{vars.IMAGE_FRONTEND_TAG}} .
+          docker push ${{vars.IMAGE_FRONTEND_TAG}}
     
       - name: deloy to eks
         working-directory: ./starter/frontend/k8s
         run: |
           aws eks update-kubeconfig --name cluster --region us-east-1
-          kustomize edit set image frontend=810716384126.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
+          kustomize edit set image frontend=${{vars.IMAGE_FRONTEND_TAG}}
           kustomize build | kubectl apply -f -
