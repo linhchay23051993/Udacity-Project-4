@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 function MovieList({ onMovieClick }) {
-  const [listMovies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_MOVIE_API_URL}/movies`).then((response) => {
@@ -13,7 +13,7 @@ function MovieList({ onMovieClick }) {
 
   return (
     <ul>
-      {listMovies.map((movie) => (
+      {movies.map((movie) => (
         <li className="movieItem" key={movie.id} onClick={() => onMovieClick(movie)}>
           {movie.title}
         </li>
