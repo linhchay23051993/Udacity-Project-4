@@ -1,8 +1,7 @@
 FROM  public.ecr.aws/docker/library/node:18.14.2-alpine3.17
 
 ARG REACT_APP_MOVIE_API_URL
-ENV REACT_APP_MOVIE_API_URL=http://aae090225a0eb4970ae8691a9c8d5d30-727795924.us-east-1.elb.amazonaws.com
-
+ENV REACT_APP_MOVIE_API_URL=${REACT_APP_MOVIE_API_URL}
 WORKDIR /app
 
 # Copy dependdency files
