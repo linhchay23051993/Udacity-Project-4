@@ -90,6 +90,8 @@ jobs:
 
     - name: push docker 
       run: |
+        echo "${{vars.IMAGE_BACKEND_TAG}}"
+        echo "${vars.IMAGE_BACKEND_TAG}"
         docker build --tag 810716384126.dkr.ecr.us-east-1.amazonaws.com/backend:latest .
         docker push 810716384126.dkr.ecr.us-east-1.amazonaws.com/backend:latest
   
