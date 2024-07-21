@@ -71,7 +71,7 @@ jobs:
           aws eks update-kubeconfig --name cluster
           export REACT_APP_MOVIE_API_URL=$(kubectl get svc backend -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}{"\n"}{.status.loadBalancer.ingress[0].ip}')
           echo "REACT_APP_MOVIE_API: ${REACT_APP_MOVIE_API}"
-          docker build --build-arg REACT_APP_MOVIE_API_URL=http:/$REACT_APP_MOVIE_API_URL --tag ${{vars.IMAGE_FRONTEND_TAG}} .
+          docker build --build-arg REACT_APP_MOVIE_API_URL=http://$REACT_APP_MOVIE_API_URL --tag ${{vars.IMAGE_FRONTEND_TAG}} .
           docker push ${{vars.IMAGE_FRONTEND_TAG}}
     
       - name: deloy to eks

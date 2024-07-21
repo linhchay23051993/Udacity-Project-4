@@ -58,4 +58,4 @@ jobs:
       - name: push docker 
         run: |
           export REACT_APP_MOVIE_API=$(kubectl get svc backend -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}{"\n"}{.status.loadBalancer.ingress[0].ip}')
-          docker build --build-arg=REACT_APP_MOVIE_API_URL=$REACT_APP_MOVIE_API --tag ${{vars.IMAGE_FRONTEND_TAG}} .
+          docker build --build-arg=REACT_APP_MOVIE_API_URL=http://$REACT_APP_MOVIE_API --tag ${{vars.IMAGE_FRONTEND_TAG}} .
