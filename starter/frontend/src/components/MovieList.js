@@ -7,6 +7,7 @@ function MovieList({ onMovieClick }) {
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_MOVIE_API_URL}/movies`).then((response) => {
+      console.log(`${process.env.REACT_APP_MOVIE_API_URL}/movies`);
       console.log(response);
       console.log(response.data);
       console.log(response.data.movies);
