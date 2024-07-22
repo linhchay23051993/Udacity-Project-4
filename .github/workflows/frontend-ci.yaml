@@ -2,11 +2,11 @@ name: CI for frontend app
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
       - main
     paths:
-      - 'starter/frontend/**'
+      - "starter/frontend/**"
 env:
   NODE_VERSION: 18.x
 
