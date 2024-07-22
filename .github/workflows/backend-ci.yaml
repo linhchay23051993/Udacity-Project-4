@@ -2,7 +2,7 @@ name: CI for backend app
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
       - main
     paths:
